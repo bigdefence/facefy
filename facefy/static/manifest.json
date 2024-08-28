@@ -1,0 +1,31 @@
+{
+  "short_name": "FaceScore",
+  "name": "Face Score Progressive Web App",
+  "icons": [
+    {
+      "src": "./static/logo_16x16.jpg",
+      "sizes": "16x16",
+      "type": "image/jpg"
+    },
+    {
+      "src": "./static/logo_32x32.jpg",
+      "sizes": "32x32",
+      "type": "image/jpg"
+    },
+    {
+      "src": "./static/logo_256x256.jpg",
+      "sizes": "256x256",
+      "type": "image/jpg"
+    },
+    {
+      "src": "./static/logo_512x512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpg"
+    },
+
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a90e2"
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Facescore는 당신의 얼굴을 분석하여 매력 점수를 제공하고, 외모와 스타일을 개선할 수 있는 맞춤형 조언을 제공합니다. 얼굴 특징을 통해 자신의 매력을 최대한 발휘해보세요.">
+    <meta name="keywords" content="얼굴 분석, 매력 점수, 스타일 개선, 외모 평가, 얼굴 특징 분석, 외모 향상, 개인 맞춤 조언, 매력 발굴, 이미지 분석, 얼굴 매력">
+    <meta name="author" content="Bigdefence">
+    <meta property="og:title" content="Facescore | 매력 점수와 스타일 개선 조언">
+    <meta property="og:description" content="Facescore는 얼굴 분석을 통해 매력 점수를 제공하고, 외모와 스타일을 개선할 수 있는 개인 맞춤형 조언을 제시합니다. 당신의 얼굴 매력을 최대한 발휘해보세요.">
+    <meta property="og:image" content="./static/logo-512x512.png">
+    <meta property="og:url" content="https://facescore.store/">
+    <meta property="og:type" content="website">
+    <meta name="google-site-verification" content="c1G3a5VzP6NgchBRY56fBrzpm1q1yHs_5HQLfjhbXiM" />
+    <meta name="naver-site-verification" content="a18812f7de86a120890f78d3105e7b6f800ff9a3" />
+    <meta name="google-adsense-account" content="ca-pub-2059330853437709">
+    <title>분석 결과</title>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="manifest" href="./static/manifest.json">
+    <link rel="icon" href="./static/logo_16x16.jpg">
+    <link rel="apple-touch-icon" href="./static/logo_16x16.jpg">
+    <meta name="theme-color" content="#FFE812">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="manifest" href="./static/manifest.json">
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px; /* 제목 아래 간격 추가 */
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            font-size: 1.5em;
+            color: #34495e;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section li {
+            margin-bottom: 10px;
+            font-size: 1em;
+            line-height: 1.5;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 40px; /* 버튼 위 간격 추가 */
+            display: block;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        .icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .desktop-only, .mobile-only {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .desktop-only {
+                display: block;
+            }
+        }
+        @media (max-width: 767px) {
+            .mobile-only {
+                display: block;
+            }
+        }
+        .skyscraper-ad {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+        .skyscraper-ad.left {
+            left: 10px;
+        }
+        .skyscraper-ad.right {
+            right: 10px;
+        }
+        @media (min-width: 1200px) {
+            .skyscraper-ad {
+                display: block;
+            }
+        }
+        .footer {
+            background-color: #4a90e2;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container desktop-only">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-tdTCLVTuWx8QduGN"
+            data-ad-width="728"
+            data-ad-height="90"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <div class="ad-container mobile-only">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-Rh4Toq8wIrvEmzsw"
+            data-ad-width="320"
+            data-ad-height="100"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <div class="container">
+        <h1>분석 결과</h1>
+
+        {% if result.error %}
+            <p class="error">오류: {{ result.error }}</p>
+        {% else %}
+            <div class="section">
+                <h2>✨ 매력 점수 평가</h2>
+                <p><strong>점수:</strong> {{ result.appearance_evaluation.score }}</p>
+                <p><strong>설명:</strong> {{ result.appearance_evaluation.explanation }}</p>
+            </div>
+
+            <div class="section">
+                <h2>👤 얼굴 특징 분석</h2>
+                <ul>
+                    {% for feature, description in result.face_feature_analysis.items() %}
+                        <li><span class="icon">🗣️</span><strong>{{ feature|replace('_', ' ')|title }}:</strong> {{ description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>💄 스타일 개선 제안</h2>
+                <ul>
+                    {% for suggestion, detail in result.improvement_suggestions.items() %}
+                        <li><span class="icon">💡</span><strong>{{ suggestion|replace('_', ' ')|title }}:</strong> {{ detail }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>🌟 강점 강조</h2>
+                <ul>
+                    {% for strength, detail in result.highlight_strengths.items() %}
+                        <li><span class="icon">⭐</span><strong>{{ strength|replace('_', ' ')|title }}:</strong> {{ detail }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-primary custom-btn">다른 이미지 시도</a>
+                <a href="/facial-analysis" class="btn btn-secondary custom-btn">관상 보기</a>
+                <a href="/fortune-telling" class="btn btn-secondary custom-btn">운세 보기</a>
+            </div>
+        {% endif %}
+        <div class="a2a_kit a2a_kit_size_50 a2a_default_style ms-3">
+                <div class="text-center mt-4">
+                    <div class="d-flex justify-content-center align-items-center share-container">
+                        <a id="kakao-link-btn" href="javascript:kakaoShare()">
+                            <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" class="share-btn" />
+                        </a>
+                        <a class="a2a_button_threads"></a>
+                        <a class="a2a_button_x"></a>
+                        <a class="a2a_button_line"></a>
+                        <a class="a2a_button_telegram"></a>
+                    </div>
+                </div>
+            </div>
+    <div class="ad-container">
+                <ins class="kakao_ad_area" style="display:none;"
+                    data-ad-unit="DAN-vrZfrBm5owQyo5h2"
+                    data-ad-width="250"
+                    data-ad-height="250"></ins>
+                <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+            </div>
+    <div class="ad-container">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-ad9FTvYp6MOr00HZ"
+            data-ad-width="300"
+            data-ad-height="250"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    
+    </div>
+
+    <div class="skyscraper-ad left">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-HssR3wTXRvAPiy9i"
+            data-ad-width="160"
+            data-ad-height="600"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <div class="skyscraper-ad right">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-0usWXlEwaDMBeUKF"
+            data-ad-width="160"
+            data-ad-height="600"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    <div class="ad-container">
+        <ins class="kakao_ad_area" style="display:none;"
+            data-ad-unit="DAN-3uxoJGUfjXKGIbSN"
+            data-ad-width="320"
+            data-ad-height="50"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Face Score. All rights reserved.</p>
+    </div>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        function kakaoShare() {
+            Kakao.init('d891fc4690f8865c75cca9d2ae13e7e9');
+
+            if (Kakao.isInitialized()) {
+                Kakao.Link.sendDefault({
+                    objectType: 'feed',
+                    content: {
+                        title: 'Facescore',
+                        description: '나의 매력점수와 관상, 운세를 보는 웹서비스',
+                        imageUrl: 'https://facescore.store/static/logo_512x512.png',
+                        link: {
+                            mobileWebUrl: 'https://facescore.store/result',
+                            webUrl: 'https://facescore.store/result',
+                        },
+                    },
+                    buttons: [{
+                        title: '웹으로 보기',
+                        link: {
+                            mobileWebUrl: 'https://facescore.store/result',
+                            webUrl: 'https://facescore.store/result',
+                        },
+                    }],
+                    installTalk: true,
+                });
+            } else {
+                console.log('Kakao SDK 초기화에 실패했습니다.');
+            }
+        }
+    </script>
+</body>
+</html>
