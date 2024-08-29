@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="얼굴 특징을 기반으로 한 개인 맞춤형 운세 분석 서비스입니다. 연애운, 금전운, 건강운, 성공운에 대한 상세한 예측을 통해 당신의 미래를 미리 확인해보세요.">
+    <meta name="keywords" content="운세 분석, 개인 운세, 연애운, 금전운, 건강운, 성공운, 얼굴 운세, 관상학, 운세 예측, 미래 예측, 운세 상담">
+    <meta name="author" content="Bigdefence">
+    <meta property="og:title" content="얼굴 특징 기반 운세 분석 | Bigdefence">
+    <meta property="og:description" content="얼굴 특징을 통해 연애운, 금전운, 건강운, 성공운을 예측하고 미래를 알아보세요. 개인 맞춤형 운세 분석으로 당신의 운명을 미리 준비하세요.">
+    <meta property="og:image" content="./static/logo-512x512.png">
+    <meta property="og:url" content="https://facescore.store/fortune-telling">
+    <meta property="og:type" content="website">
+    <meta name="google-site-verification" content="c1G3a5VzP6NgchBRY56fBrzpm1q1yHs_5HQLfjhbXiM" />
+    <meta name="naver-site-verification" content="a18812f7de86a120890f78d3105e7b6f800ff9a3" />
+    <title>운세 분석 결과</title>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="./static/logo_16x16.jpg">
+    <link rel="apple-touch-icon" href="./static/logo_16x16.jpg">
+    <meta name="theme-color" content="#FFE812">
+    <link rel="manifest" href="./static/manifest.json">
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            margin-top: 20px;
+            max-width: 900px;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .section {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .section h2 {
+            color: #343a40;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .section p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .section p strong {
+            color: #007bff;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .btn {
+            margin: 5px;
+        }
+        .text-center {
+            margin-top: 20px;
+        }
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .desktop-only, .mobile-only {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .desktop-only {
+                display: block;
+            }
+        }
+        @media (max-width: 767px) {
+            .mobile-only {
+                display: block;
+            }
+        }
+        .skyscraper-ad {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+        .skyscraper-ad.left {
+            left: 10px;
+        }
+        .skyscraper-ad.right {
+            right: 10px;
+        }
+        @media (min-width: 1200px) {
+            .skyscraper-ad {
+                display: block;
+            }
+        }
+        .footer {
+            background-color: #4a90e2;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container desktop-only">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-fWagzbe1lmQcvwhK"
+            data-ad-width="728"
+            data-ad-height="90"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <div class="ad-container mobile-only">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-UpT1Cpj70Yvw8OyT"
+            data-ad-width="320"
+            data-ad-height="100"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    <div class="container">
+        <h1>운세 분석 결과</h1>
+
+        {% if fortune.error %}
+            <div class="alert alert-danger" role="alert">
+                오류: {{ fortune.error }}
+            </div>
+        {% else %}
+            <div class="section">
+                <h2>💖 연애운</h2>
+                <p><strong>성격과 연애:</strong> {{ fortune.fortune_analysis.love_life.personality_and_relationships }}</p>
+                <p><strong>연애 전망:</strong> {{ fortune.fortune_analysis.love_life.love_prospects }}</p>
+            </div>
+
+            <div class="section">
+                <h2>💰 금전운</h2>
+                <p><strong>재정 성향:</strong> {{ fortune.fortune_analysis.financial_status.financial_traits }}</p>
+                <p><strong>금전 운세:</strong> {{ fortune.fortune_analysis.financial_status.financial_prospects }}</p>
+            </div>
+
+            <div class="section">
+                <h2>🩺 건강운</h2>
+                <p><strong>건강 상태:</strong> {{ fortune.fortune_analysis.health_status.health_state }}</p>
+                <p><strong>건강 전망:</strong> {{ fortune.fortune_analysis.health_status.health_prospects }}</p>
+            </div>
+
+            <div class="section">
+                <h2>🏆 성공운</h2>
+                <p><strong>직업과 성공:</strong> {{ fortune.fortune_analysis.success_prospects.career_success }}</p>
+                <p><strong>성공 전망:</strong> {{ fortune.fortune_analysis.success_prospects.success_prospects }}</p>
+            </div>
+
+            <div class="section">
+                <h2>🌈 기타 운세</h2>
+                <p><strong>총괄 운세:</strong> {{ fortune.fortune_analysis.overall_fortune }}</p>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-primary">홈으로 돌아가기</a>
+                <a href="/facial-analysis" class="btn btn-secondary">관상 보기</a>
+            </div>
+        {% endif %}
+        <div class="a2a_kit a2a_kit_size_50 a2a_default_style ms-3">
+                <div class="text-center mt-4">
+                    <div class="d-flex justify-content-center align-items-center share-container">
+                        <a id="kakao-link-btn" href="javascript:kakaoShare()">
+                            <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" class="share-btn" />
+                        </a>
+                        <a class="a2a_button_threads"></a>
+                        <a class="a2a_button_x"></a>
+                        <a class="a2a_button_line"></a>
+                        <a class="a2a_button_telegram"></a>
+                    </div>
+                </div>
+            </div>
+        <div class="ad-container">
+                <ins class="kakao_ad_area" style="display:none;"
+                    data-ad-unit="DAN-pU72YlFfEZ9sNnTq"
+                    data-ad-width="250"
+                    data-ad-height="250"></ins>
+                <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+            </div>
+    <div class="ad-container">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-vBt3J6XTRAfbE3HR"
+            data-ad-width="300"
+            data-ad-height="250"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    </div>
+    <div class="skyscraper-ad left">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-1sQF2LQNnzfHXJ9v"
+            data-ad-width="160"
+            data-ad-height="600"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+
+    <div class="skyscraper-ad right">
+        <ins class="kakao_ad_area"
+            data-ad-unit="DAN-WZYNSajeodVbXIRl"
+            data-ad-width="160"
+            data-ad-height="600"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    <div class="ad-container">
+        <ins class="kakao_ad_area" style="display:none;"
+            data-ad-unit="DAN-3rTiU0IvwSPnGYoO"
+            data-ad-width="320"
+            data-ad-height="50"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Face Score. All rights reserved.</p>
+    </div>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        function kakaoShare() {
+            Kakao.init('d891fc4690f8865c75cca9d2ae13e7e9');
+
+            if (Kakao.isInitialized()) {
+                Kakao.Link.sendDefault({
+                    objectType: 'feed',
+                    content: {
+                        title: 'Facescore',
+                        description: '나의 매력점수와 관상, 운세를 보는 웹서비스',
+                        imageUrl: 'https://facescore.store/static/logo_512x512.png',
+                        link: {
+                            mobileWebUrl: 'https://facescore.store/result',
+                            webUrl: 'https://facescore.store/result',
+                        },
+                    },
+                    buttons: [{
+                        title: '웹으로 보기',
+                        link: {
+                            mobileWebUrl: 'https://facescore.store/result',
+                            webUrl: 'https://facescore.store/result',
+                        },
+                    }],
+                    installTalk: true,
+                });
+            } else {
+                console.log('Kakao SDK 초기화에 실패했습니다.');
+            }
+        }
+    </script>
+</body>
+</html>
