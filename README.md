@@ -41,7 +41,6 @@
 - **이미지 처리**: PIL (Pillow)  
 - **세션 관리**: Flask Session  
 - **환경 관리**: dotenv  
-- **기타 라이브러리**: hashlib, json, base64, google.generativeai  
 
 ---
 
