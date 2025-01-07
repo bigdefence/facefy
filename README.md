@@ -96,11 +96,10 @@
 ## 🖼️ 스크린샷
 
 - **홈 화면**: 이미지를 업로드하여 분석 요청.
-- ![main](https://github.com/user-attachments/assets/263e7276-ab2f-437a-85d1-9a6123942851)
+![main](https://github.com/user-attachments/assets/263e7276-ab2f-437a-85d1-9a6123942851)
 
 - **결과 화면**: 분석 결과 및 추천 확인.
-- ![result](https://github.com/user-attachments/assets/32f17c21-f279-47a7-88e5-4749c2a1d421)
-
+![result](https://github.com/user-attachments/assets/32f17c21-f279-47a7-88e5-4749c2a1d421)
 
 ---
 
